@@ -13,6 +13,6 @@ Each student can print in pdf format a study summary and a study confirmation do
 
 ## Checkpoints
 
-- [y] [cp0](https://cw.fel.cvut.cz/b201/courses/ear/cp0) 
+- [x] [cp0](https://cw.fel.cvut.cz/b201/courses/ear/cp0) 
 - [ ] [cp1](https://cw.fel.cvut.cz/b201/courses/ear/cp1)
 - [ ] [cp2](https://cw.fel.cvut.cz/b201/courses/ear/cp2)
