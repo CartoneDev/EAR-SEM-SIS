@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
+import java.util.List;
+
 
 @Getter
 @Entity
@@ -26,6 +28,8 @@ public class Room extends AbstractEntity{
     @Enumerated(EnumType.STRING)
     private RoomType type;
 
+    @OneToMany(mappedBy = "room")
+    private List<Schedule> schedules;
     public Room(String identifier, Integer capacity, RoomType type) {
         this.identifier = identifier;
         this.setCapacity(capacity);

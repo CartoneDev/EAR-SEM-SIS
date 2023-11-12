@@ -16,9 +16,6 @@ public class Schedule extends AbstractEntity{
     @Column(name = "date_to", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime to;
 
-    @ManyToOne(optional = false)
-    private Room room;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "lecture_type", nullable = false)
     private LectureType lectureType;
@@ -27,19 +24,17 @@ public class Schedule extends AbstractEntity{
     @Column(nullable = false)
     private Integer capacity;
 
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer capacityUsed;
-
     @OneToMany(mappedBy = "schedule")
     private List<Student> students;
 
-    @OneToOne
+    @ManyToOne(optional = false)
     private Course course;
 
-    @OneToOne
+    @ManyToOne(optional = false)
     private Teacher teacher;
 
+    @ManyToOne(optional = false)
+    private Room room;
     @Override
     public String toString() {
         return "Schedule{" +
@@ -47,7 +42,6 @@ public class Schedule extends AbstractEntity{
                 ", to=" + to +
                 ", room=" + room +
                 ", capacity=" + capacity +
-                ", capacityUsed=" + capacityUsed +
                 '}';
     }
 }

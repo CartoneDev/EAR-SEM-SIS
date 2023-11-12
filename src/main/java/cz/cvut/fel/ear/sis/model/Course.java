@@ -22,14 +22,25 @@ public class Course extends AbstractEntity{
     private Integer hoursLecture;
     @Basic(optional = false)
     private Integer hoursPractise;
+
     @OneToMany(mappedBy = "prerequisiteCourse")
     @Setter
     List<Prerequisite> prerequisites;
+
     @OneToOne
     private Guarantor guarantor;
 
     @OneToMany(mappedBy = "course")
     List<Teacher> teachers;
+
+    @OneToMany(mappedBy = "course")
+    List<EnrollmentRecord> enrollmentRecords;
+
+    @OneToMany(mappedBy = "course")
+    List<Attendance> attendances;
+
+    @ManyToMany(mappedBy = "courses")
+    List<Schedule> schedules;
 
     public void setCredits(Integer credits) {
         if (credits < 0) {

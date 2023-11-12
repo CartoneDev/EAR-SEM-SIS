@@ -7,7 +7,7 @@ public class Attendance extends AbstractEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AttendanceType attendanceType;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Course course;
     @ManyToOne(optional = false)
     private Program program;

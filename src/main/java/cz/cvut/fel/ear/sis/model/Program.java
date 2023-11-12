@@ -15,4 +15,6 @@ public class Program extends AbstractEntity{
     private String description;
     @OneToMany(mappedBy = "program", orphanRemoval = true)
     List<Attendance> attendances;
+    @OneToMany(mappedBy = "program")
+    List<Student> students;
 }
