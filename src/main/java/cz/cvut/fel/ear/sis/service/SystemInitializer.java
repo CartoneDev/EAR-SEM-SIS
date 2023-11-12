@@ -36,7 +36,6 @@ public class SystemInitializer {
     private void initSystem() {
         TransactionTemplate txTemplate = new TransactionTemplate(txManager);
         txTemplate.execute((status) -> {
-            generateAdmin();
             return null;
         });
     }

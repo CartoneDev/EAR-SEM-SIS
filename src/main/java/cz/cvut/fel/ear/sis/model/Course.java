@@ -1,14 +1,16 @@
 package cz.cvut.fel.ear.sis.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @NoArgsConstructor
+@Getter @NoArgsConstructor @AllArgsConstructor
 public class Course extends AbstractEntity{
     @Setter
     @Basic(optional = false)
@@ -25,7 +27,7 @@ public class Course extends AbstractEntity{
 
     @OneToMany(mappedBy = "prerequisiteCourse")
     @Setter
-    List<Prerequisite> prerequisites;
+    private List<Prerequisite> prerequisites = new ArrayList<>();
 
     @OneToOne
     private Guarantor guarantor;
@@ -36,16 +38,16 @@ public class Course extends AbstractEntity{
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id")
     )
-    private List<Teacher> teachers;
+    private List<Teacher> teachers= new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    List<EnrollmentRecord> enrollmentRecords;
+    List<EnrollmentRecord> enrollmentRecords= new ArrayList<>();
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Attendance> attendances = new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    List<Attendance> attendances;
-
-    @OneToMany(mappedBy = "course")
-    List<Schedule> schedules;
+    List<Schedule> schedules= new ArrayList<>();
 
     public void setCredits(Integer credits) {
         if (credits < 0) {

@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Program extends AbstractEntity{
     @Basic(optional = false)
     private String description;
     @OneToMany(mappedBy = "program", orphanRemoval = true)
-    List<Attendance> attendances;
+    List<Attendance> attendances = new ArrayList<>();
     @OneToMany(mappedBy = "program")
     List<Student> students;
 }

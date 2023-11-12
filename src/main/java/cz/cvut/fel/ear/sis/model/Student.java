@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class Student extends User{
     @Column(name = "student_number")
     private String studentNumber;
     @OneToMany(mappedBy = "student")
-    private List<EnrollmentRecord> enrollmentRecords;
+    private List<EnrollmentRecord> enrollmentRecords = new ArrayList<>();
     @ManyToOne(optional = false)
     private Program program;
     @ManyToMany

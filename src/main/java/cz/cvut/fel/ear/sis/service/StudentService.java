@@ -40,6 +40,7 @@ public class StudentService {
         enrollmentRecord.setCourse(course);
         enrollmentRecord.setStudent(student);
         enrollmentRecord.setSemYear(getCurrentSemYear());
+        student.getEnrollmentRecords().add(enrollmentRecord);
         enrollmentRecordDao.persist(enrollmentRecord);
     }
 
