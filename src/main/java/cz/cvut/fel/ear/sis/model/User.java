@@ -46,4 +46,7 @@ public class User extends AbstractEntity{
         return "User{" + firstName + " " + lastName + " (" + username + ")}";
     }
 
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        setPassword(passwordFingerprint, passwordEncoder);
+    }
 }
