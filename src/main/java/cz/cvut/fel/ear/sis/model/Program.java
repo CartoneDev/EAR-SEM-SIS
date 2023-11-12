@@ -4,10 +4,13 @@ package cz.cvut.fel.ear.sis.model;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter @Setter
 public class Program extends AbstractEntity{
     @Basic(optional = false)
     private String name;

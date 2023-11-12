@@ -24,10 +24,11 @@ public class Schedule extends AbstractEntity{
     @Column(nullable = false)
     private Integer capacity;
 
-    @OneToMany(mappedBy = "schedule")
+    @ManyToMany(mappedBy = "schedules")
     private List<Student> students;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne(optional = false)

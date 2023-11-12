@@ -70,4 +70,8 @@ public class UserService {
         }
         userDao.persist(toRemove); // ideally, userdao since it's single table should cover all scenarios
     }
+
+    public boolean exists(String userName) {
+        return userDao.findAll().stream().anyMatch(user -> user.getUsername().equals(userName));
+    }
 }

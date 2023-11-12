@@ -1,8 +1,6 @@
 package cz.cvut.fel.ear.sis.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -11,4 +9,7 @@ import java.util.List;
 public class Teacher extends User{
     @OneToMany(mappedBy = "teacher")
     private List<Schedule> schedules;
+
+    @ManyToMany(mappedBy = "teachers")
+    private List<Course> courses;
 }

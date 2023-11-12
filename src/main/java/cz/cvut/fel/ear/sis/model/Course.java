@@ -30,8 +30,13 @@ public class Course extends AbstractEntity{
     @OneToOne
     private Guarantor guarantor;
 
-    @OneToMany(mappedBy = "course")
-    List<Teacher> teachers;
+    @ManyToMany
+    @JoinTable(
+            name = "course_teacher",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    )
+    private List<Teacher> teachers;
 
     @OneToMany(mappedBy = "course")
     List<EnrollmentRecord> enrollmentRecords;
@@ -39,7 +44,7 @@ public class Course extends AbstractEntity{
     @OneToMany(mappedBy = "course")
     List<Attendance> attendances;
 
-    @ManyToMany(mappedBy = "courses")
+    @OneToMany(mappedBy = "course")
     List<Schedule> schedules;
 
     public void setCredits(Integer credits) {

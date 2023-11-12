@@ -6,15 +6,15 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "SIS_USER")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-public class User extends AbstractEntity{
-    @Basic(optional = false)
-    @Column(name = "user_type", nullable = false)
-    @Setter
-    private String userType;
+public class User extends AbstractEntity {
+//    @Basic(optional = false)
+//    @Column(name = "user_type", nullable = false)
+//    private String userType;
 
     @Basic(optional = false)
     @Column(name = "email", nullable = false)

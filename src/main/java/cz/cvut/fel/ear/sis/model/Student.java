@@ -14,10 +14,14 @@ import java.util.List;
 public class Student extends User{
     @Column(name = "student_number")
     private String studentNumber;
-    @ManyToMany(mappedBy = "students")
+    @OneToMany(mappedBy = "student")
     private List<EnrollmentRecord> enrollmentRecords;
     @ManyToOne(optional = false)
     private Program program;
-    @OneToMany(mappedBy = "student")
+    @ManyToMany
+    @JoinTable(
+            name = "student_schedule",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
     private List<Schedule> schedules;
 }
