@@ -1,0 +1,14 @@
+package cz.cvut.fel.ear.sis.security.model;
+
+import lombok.Data;
+
+@Data
+public class LoginRequest {
+    private String username;
+    private String password;
+
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+}

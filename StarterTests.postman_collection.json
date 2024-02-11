@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "6b149dfc-0892-4acb-aef6-6da53d1f6212",
+		"name": "StarterTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32736669",
+		"_collection_link": "https://bold-meadow-196453.postman.co/workspace/ear-sis~fd8c6413-6fd5-4bef-8bf0-0fe87be328bc/collection/32736669-6b149dfc-0892-4acb-aef6-6da53d1f6212?action=share&source=collection_link&creator=32736669"
+	},
+	"item": [
+		{
+			"name": "getRoot",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCourses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "jwt-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jwt-token\": {{$authToken}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/course/courses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"course",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.text();",
+							"if (pm.response.code == 200)",
+							"    pm.globals.set(\"authToken\", response);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,5 +1,6 @@
 package cz.cvut.fel.ear.sis.model;
 
+import cz.cvut.fel.ear.sis.utility.Utils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Entity
 @Getter @NoArgsConstructor @AllArgsConstructor
+@NamedQuery(name = "findCourseByName",
+        query = "SELECT c FROM Course c WHERE c.name = :name")
 public class Course extends AbstractEntity{
     @Setter
     @Basic(optional = false)
@@ -40,7 +43,7 @@ public class Course extends AbstractEntity{
     )
     private List<Teacher> teachers= new ArrayList<>();
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<EnrollmentRecord> enrollmentRecords= new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -66,5 +69,51 @@ public class Course extends AbstractEntity{
             throw new IllegalArgumentException("Hours of practise cannot be negative");
         }
         this.hoursPractise = hoursPractise;
+    }
+
+    public void setGuarantor(Guarantor guarantor) {
+        Utils.checkParametersNotNull(guarantor);
+        this.guarantor = guarantor;
+    }
+
+    public void removeGuarantor(Guarantor guarantor) {
+        Utils.checkParametersNotNull(guarantor);
+        if (this.guarantor == null) {
+            return;
+        }
+        if (this.guarantor.getId().equals(guarantor.getId())) {
+            this.guarantor = null;
+        }
+    }
+
+    public void addTeacher(Teacher teacher) {
+        Utils.checkParametersNotNull(teacher);
+        teachers.add(teacher);
+    }
+
+    public void removeTeacher(Teacher teacher) {
+        Utils.checkParametersNotNull(teacher);
+        if (teachers == null) {
+            return;
+        }
+        teachers.removeIf(t -> t.getId().equals(teacher.getId()));
+    }
+
+    public void addPrerequisite(Prerequisite prerequisite) {
+        Utils.checkParametersNotNull(prerequisite);
+        prerequisites.add(prerequisite);
+    }
+
+    public void removePrerequisite(Prerequisite prerequisite) {
+        Utils.checkParametersNotNull(prerequisite);
+        if (prerequisites == null) {
+            return;
+        }
+        prerequisites.removeIf(p -> p.getId().equals(prerequisite.getId()));
+    }
+
+    public void addEnrollmentRecord(EnrollmentRecord enrollmentRecord) {
+        Utils.checkParametersNotNull(enrollmentRecord);
+        enrollmentRecords.add(enrollmentRecord);
     }
 }

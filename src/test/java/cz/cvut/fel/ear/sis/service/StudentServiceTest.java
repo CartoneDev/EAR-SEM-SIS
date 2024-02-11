@@ -2,12 +2,12 @@ package cz.cvut.fel.ear.sis.service;
 
 import cz.cvut.fel.ear.sis.exception.PrerequisiteException;
 import cz.cvut.fel.ear.sis.model.*;
-import cz.cvut.fel.ear.sis.utility.PlainTextEncoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,7 +86,8 @@ public class StudentServiceTest {
 
     private Student generateStudent(Program program){
         Student student = new Student();
-        student.setPassword("", new PlainTextEncoder());
+        student.setPassword("");
+        student.encodePassword(new BCryptPasswordEncoder());
         student.setUsername("uname" + random.nextInt());
         student.setFirstName("Jonny");
         student.setLastName("Hurt");

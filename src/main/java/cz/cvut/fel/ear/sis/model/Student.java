@@ -15,9 +15,9 @@ import java.util.List;
 public class Student extends User{
     @Column(name = "student_number")
     private String studentNumber;
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<EnrollmentRecord> enrollmentRecords = new ArrayList<>();
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Program program;
     @ManyToMany
     @JoinTable(

@@ -8,9 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @Setter
 @Entity
-@Table(name = "SIS_USER")
+@Table(name = "sis_user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
+@NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
 public class User extends AbstractEntity {
 //    @Basic(optional = false)
 //    @Column(name = "user_type", nullable = false)
@@ -35,8 +36,8 @@ public class User extends AbstractEntity {
     @Basic(optional = false)
     @Column(name = "password", nullable = false)
     private String passwordFingerprint;
-    public void setPassword(String password, PasswordEncoder encoder) {
-        this.passwordFingerprint = encoder.encode(password);
+    public void setPassword(String password) {
+        this.passwordFingerprint = password;
     }
     public User() {
 //        this.username = "guest";
@@ -47,6 +48,7 @@ public class User extends AbstractEntity {
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
-        setPassword(passwordFingerprint, passwordEncoder);
+        setPassword(passwordEncoder.encode(passwordFingerprint));
     }
+
 }

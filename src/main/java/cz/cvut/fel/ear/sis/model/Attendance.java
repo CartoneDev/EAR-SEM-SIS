@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@Table(name = "attendance")
 public class Attendance extends AbstractEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

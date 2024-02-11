@@ -12,5 +12,6 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor
 public class Guarantor extends Teacher{
     @OneToMany
+    @OrderBy("name ASC")
     List<Course> course;
 }
