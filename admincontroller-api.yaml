@@ -1,0 +1,191 @@
+openapi: 3.0.0
+info:
+  title: Admin Controller API
+  description: Endpoints for administering courses, teachers, students, and schedules.
+  version: 1.0.0
+paths:
+  /admin/addTeacher:
+    post:
+      summary: Add Teacher to Course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                teacher_id:
+                  type: integer
+      responses:
+        '200':
+          description: Teacher added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Course or teacher not found
+
+  /admin/removeTeacher:
+    delete:
+      summary: Remove Teacher from Course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                teacher_id:
+                  type: integer
+      responses:
+        '200':
+          description: Teacher removed successfully
+        '404':
+          description: Course or teacher not found
+
+  /admin/editCourse/{id}:
+    put:
+      summary: Edit Course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Course edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Course not found
+
+  /admin/students:
+    get:
+      summary: Get All Students
+      responses:
+        '200':
+          description: List of all students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+
+  /admin/addCourseToStudent/{student_id}/{course_id}:
+    post:
+      summary: Add Course to Student
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course added to student plan successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Course or student not found
+
+  /admin/removeCourseFromStudent/{student_id}/{course_id}:
+    delete:
+      summary: Remove Course from Student
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course removed from student plan successfully
+        '404':
+          description: Course or student not found
+
+  /admin/students/{username}:
+    get:
+      summary: Get Student by Username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Student found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: Student not found
+
+  /admin/schedules:
+    post:
+      summary: Set Schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleDTO'
+      responses:
+        '200':
+          description: Schedule set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleDTO'
+        '400':
+          description: Bad request
+
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        // UserDTO properties
+
+    CourseDTO:
+      type: object
+      properties:
+        // CourseDTO properties
+
+    ScheduleDTO:
+      type: object
+      properties:
+        // ScheduleDTO properties

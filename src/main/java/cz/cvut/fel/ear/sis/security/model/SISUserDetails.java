@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.sis.security.model;
 
 import cz.cvut.fel.ear.sis.model.User;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+@Getter
 public class SISUserDetails implements UserDetails {
     private final User user;
 
@@ -21,9 +23,9 @@ public class SISUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (user.getClass() != User.class) {
-            authorities.add(new SimpleGrantedAuthority(user.getClass().getSimpleName().toUpperCase(Locale.ROOT)));
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getClass().getSimpleName().toUpperCase(Locale.ROOT)));
         }
 
         return authorities;

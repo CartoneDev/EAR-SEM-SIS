@@ -15,7 +15,7 @@ import java.util.List;
 public class Student extends User{
     @Column(name = "student_number")
     private String studentNumber;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EnrollmentRecord> enrollmentRecords = new ArrayList<>();
     @ManyToOne(optional = true)
     private Program program;
@@ -25,4 +25,11 @@ public class Student extends User{
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "schedule_id"))
     private List<Schedule> schedules;
+
+    public void addCourse(Course course) {
+        EnrollmentRecord enrollmentRecord = new EnrollmentRecord();
+        enrollmentRecord.setCourse(course);
+        enrollmentRecord.setStudent(this);
+        enrollmentRecords.add(enrollmentRecord);
+    }
 }

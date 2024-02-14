@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      description: Authenticates a user and returns a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful login
+          content:
+            text/plain:
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              example: 'Authentication failed: Invalid username or password.'
+  /auth/logout:
+    post:
+      summary: User logout
+      description: Logs out the currently authenticated user.
+      responses:
+        '204':
+          description: Successful logout
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user.
+        password:
+          type: string
+          format: password
+          description: The password of the user.
+      required:
+        - username
+        - password

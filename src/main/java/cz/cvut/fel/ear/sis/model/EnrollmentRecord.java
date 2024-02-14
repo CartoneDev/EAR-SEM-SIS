@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "enrollment_record")
 @NoArgsConstructor @Getter @Setter
 public class EnrollmentRecord extends AbstractEntity{
     @ManyToOne(optional = false)

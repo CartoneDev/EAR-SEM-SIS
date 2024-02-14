@@ -1,0 +1,347 @@
+openapi: 3.0.0
+info:
+  title: Course API
+  description: API for managing courses and enrollments
+  version: 1.0.0
+paths:
+  /course/add:
+    post:
+      summary: Add course to student's plan
+      tags:
+        - admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                student_id:
+                  type: integer
+      responses:
+        '200':
+          description: Course added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course or student not found
+  /course/remove:
+    delete:
+      summary: Remove course from student's plan
+      tags:
+        - admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                student_id:
+                  type: integer
+      responses:
+        '200':
+          description: Course removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course or student not found
+  /course/register/{id}:
+    get:
+      summary: Get course by ID
+      tags:
+        - public
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course not found
+  /course/courses:
+    get:
+      summary: Get all courses
+      tags:
+        - public
+      responses:
+        '200':
+          description: Courses found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Courses not found
+  /course/course/search:
+    get:
+      summary: Search course by name
+      tags:
+        - public
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Course found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course not found
+  /course/student/{student_id}/courses:
+    get:
+      summary: Get courses by student ID
+      tags:
+        - public
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Courses found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Courses not found
+  /course/{course_id}/schedule:
+    get:
+      summary: Get course schedule by ID
+      tags:
+        - public
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Schedule found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScheduleDTO'
+        '404':
+          description: Schedule not found
+  /course/{course_id}/teachers:
+    get:
+      summary: Get course teachers by ID
+      tags:
+        - public
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Teachers found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Teacher'
+        '404':
+          description: Teachers not found
+  /course/{course_id}/guarantors:
+    get:
+      summary: Get course guarantors by ID
+      tags:
+        - public
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Guarantors found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Guarantor'
+        '404':
+          description: Guarantors not found
+  /course/{course_id}/teacher/{name}:
+    get:
+      summary: Get teacher by name for a course
+      tags:
+        - public
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Teacher found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+        '404':
+          description: Teacher not found
+  /course/{course_id}/enroll:
+    post:
+      summary: Enroll student in a course
+      tags:
+        - student
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Student enrolled successfully
+        '422':
+          description: Unprocessable Entity
+  /course/{course_id}/unroll:
+    delete:
+      summary: Unroll student from a course
+      tags:
+        - student
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Student unrolled successfully
+        '422':
+          description: Unprocessable Entity
+  /course/editCourse/{id}:
+    put:
+      summary: Edit course details
+      tags:
+        - admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Course edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Course not found
+  /course/{course_id}/enrollments:
+    get:
+      summary: Get enrollments for a course
+      tags:
+        - teacher
+        - guarantor
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Enrollments found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollmentDTO'
+        '404':
+          description: Enrollments not found
+
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        // Define Course properties here
+    CourseDTO:
+      type: object
+      properties:
+        // Define CourseDTO properties here
+    ScheduleDTO:
+      type: object
+      properties:
+        // Define ScheduleDTO properties here
+    Teacher:
+      type: object
+      properties:
+        // Define Teacher properties here
+    Guarantor:
+      type: object
+      properties:
+        // Define Guarantor properties here
+    EnrollmentDTO:
+      type: object
+      properties:
+        // Define EnrollmentDTO properties here

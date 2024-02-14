@@ -2,6 +2,7 @@ package cz.cvut.fel.ear.sis.model;
 
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -19,6 +20,6 @@ public class Program extends AbstractEntity{
     private String description;
     @OneToMany(mappedBy = "program", orphanRemoval = true)
     List<Attendance> attendances = new ArrayList<>();
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.MERGE)
     List<Student> students;
 }

@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("GARANT")
 @Getter @Setter @NoArgsConstructor
+@NamedQuery(name = "findCourseGuarantors", query = "SELECT g FROM Guarantor g JOIN g.course c WHERE c = :course")
 public class Guarantor extends Teacher{
     @OneToMany
     @OrderBy("name ASC")

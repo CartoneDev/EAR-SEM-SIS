@@ -1,10 +1,8 @@
 package cz.cvut.fel.ear.sis.DAO;
 
 import cz.cvut.fel.ear.sis.SISApplication;
-import cz.cvut.fel.ear.sis.model.Program;
 import cz.cvut.fel.ear.sis.exception.PersistenceException;
-
-import cz.cvut.fel.ear.sis.service.SystemInitializer;
+import cz.cvut.fel.ear.sis.model.Program;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // For explanatory comments, see ProductDaoTest
 @DataJpaTest
 @ComponentScan(basePackageClasses = SISApplication.class, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class)})
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = SISApplication.class)})
 @ActiveProfiles("test")
 public class BaseDaoTest {
 

@@ -5,7 +5,6 @@ import cz.cvut.fel.ear.sis.model.Attendance;
 import cz.cvut.fel.ear.sis.model.AttendanceType;
 import cz.cvut.fel.ear.sis.model.Course;
 import cz.cvut.fel.ear.sis.model.Program;
-import cz.cvut.fel.ear.sis.service.SystemInitializer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
 @ComponentScan(basePackageClasses = SISApplication.class, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class)})
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SISApplication.class)})
 @ActiveProfiles("test")
 public class CourseDaoTest {
 

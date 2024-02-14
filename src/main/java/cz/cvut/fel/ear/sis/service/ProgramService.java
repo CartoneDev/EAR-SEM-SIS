@@ -27,4 +27,9 @@ public class ProgramService {
     public Program findProgramById(Integer programId) {
         return programDao.find(programId);
     }
+
+    @Transactional
+    public void persist(Program program) {
+        programDao.persist(program);
+    }
 }

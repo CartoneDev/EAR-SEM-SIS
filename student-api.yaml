@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Student API
+  version: 1.0.0
+paths:
+  /student/student/{id}:
+    get:
+      summary: Get student by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the student to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: Student not found
+  /student/courses/my/{id}:
+    get:
+      summary: Get courses of a student
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the student
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDTO'
+        '404':
+          description: Student not found
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        // Define properties for UserDTO here
+
+    CourseDTO:
+      type: object
+      properties:
+        // Define properties for CourseDTO here

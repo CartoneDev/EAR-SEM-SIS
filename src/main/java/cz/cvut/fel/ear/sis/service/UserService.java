@@ -54,9 +54,10 @@ public class UserService {
     @Transactional
     public void update(User toSet, User invoker){
         if (invoker instanceof Admin){
+            userDao.update(toSet);
+        }else {
             throw new UnAuthorizedException("");// there should be a better way to handle authorization
         }
-        userDao.update(toSet);
     }
 
     @Transactional(readOnly = true)
@@ -105,7 +106,7 @@ public class UserService {
 
 //        ((Student) actualUser).setProgram(programService.findProgramById(programId));
 
-        actualUser.setEmail("%s@min.cz".formatted(username));
+        actualUser.setEmail("%s@edu.cz".formatted(username));
         actualUser.encodePassword(passwordEncoder);
         persist(actualUser);
         return actualUser;

@@ -59,6 +59,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                     authorizationManagerRequestMatcherRegistry
                         .requestMatchers(request -> request.getServletPath().startsWith("/auth")).permitAll()
+//                        .anyRequest().permitAll()
                         .anyRequest().authenticated()
 //                            .requestMatchers(request -> request.getContextPath().startsWith("/auth")).permitAll()
             ).formLogin(AbstractHttpConfigurer::disable

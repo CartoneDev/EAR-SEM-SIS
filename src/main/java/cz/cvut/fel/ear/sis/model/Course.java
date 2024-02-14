@@ -14,6 +14,8 @@ import java.util.List;
 @Getter @NoArgsConstructor @AllArgsConstructor
 @NamedQuery(name = "findCourseByName",
         query = "SELECT c FROM Course c WHERE c.name = :name")
+@NamedQuery(name = "findCourseById",
+        query = "SELECT c FROM Course c WHERE c.id = :id")
 public class Course extends AbstractEntity{
     @Setter
     @Basic(optional = false)
@@ -28,7 +30,7 @@ public class Course extends AbstractEntity{
     @Basic(optional = false)
     private Integer hoursPractise;
 
-    @OneToMany(mappedBy = "prerequisiteCourse")
+    @OneToMany(mappedBy = "prerequisiteCourse", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
     private List<Prerequisite> prerequisites = new ArrayList<>();
 

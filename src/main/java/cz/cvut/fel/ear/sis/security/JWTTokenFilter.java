@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
+//@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class JWTTokenFilter extends OncePerRequestFilter {
     UserDetailService userDetailService;
@@ -39,9 +39,11 @@ public class JWTTokenFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
                 SecurityContextHolder.clearContext();
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has expired");
+                return;
             } catch (Exception e) {
                 SecurityContextHolder.clearContext();
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+                return;
             }
         }
 

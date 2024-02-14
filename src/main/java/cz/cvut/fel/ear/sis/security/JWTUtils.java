@@ -4,11 +4,8 @@ package cz.cvut.fel.ear.sis.security;
 import cz.cvut.fel.ear.sis.config.JWTConfig;
 import cz.cvut.fel.ear.sis.security.model.SISUserDetails;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
